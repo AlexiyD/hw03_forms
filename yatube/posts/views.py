@@ -47,15 +47,15 @@ def profile(request, username):
     page_number = request.GET.get("page")
     profile = get_object_or_404(User, username=username)
     post_list = (Post.objects.select_related("author", "group")
-                .filter(author=profile).order_by("-pub_date").all())
+                 .filter(author=profile).order_by("-pub_date").all())
     post_count = post_list.count
     paginator = Paginator(post_list, 10)
     page_obj = paginator.get_page(page_number)
     context = {
-              "profile": profile,
-              "page_obj": page_obj,
-              "paginator": paginator,
-              "post_count": post_count
+               "profile": profile,
+               "page_obj": page_obj,
+               "paginator": paginator,
+               "post_count": post_count
     }
     return render(request, 'posts/profile.html', context)
 
@@ -96,4 +96,4 @@ def post_edit(request, post_id):
         return redirect('posts:post_detail', post_id)
     return render(request, template,
                   {'form': form, 'is_valid': True, 'post': post}
-                 )
+                  )

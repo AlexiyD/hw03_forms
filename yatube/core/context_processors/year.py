@@ -7,4 +7,3 @@ def year(request):
     return {
         'year': int(year),
     }
-    
