@@ -52,10 +52,10 @@ def profile(request, username):
     paginator = Paginator(post_list, 10)
     page_obj = paginator.get_page(page_number)
     context = {
-               "profile": profile,
-               "page_obj": page_obj,
-               "paginator": paginator,
-               "post_count": post_count
+            "profile": profile,
+            "page_obj": page_obj,
+            "paginator": paginator,
+            "post_count": post_count
     }
     return render(request, 'posts/profile.html', context)
 
