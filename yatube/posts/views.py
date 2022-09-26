@@ -46,15 +46,16 @@ def group_posts(request, slug):
 def profile(request, username):
     page_number = request.GET.get("page")
     profile = get_object_or_404(User, username=username)
-    post_list = Post.objects.select_related("author", "group").filter(author=profile).order_by("-pub_date").all()
+    post_list = (Post.objects.select_related("author", "group")
+                .filter(author=profile).order_by("-pub_date").all())
     post_count = post_list.count
     paginator = Paginator(post_list, 10)
     page_obj = paginator.get_page(page_number)
     context = {
-            "profile": profile,
-            "page_obj": page_obj,
-            "paginator": paginator,
-            "post_count": post_count
+              "profile": profile,
+              "page_obj": page_obj,
+              "paginator": paginator,
+              "post_count": post_count
     }
     return render(request, 'posts/profile.html', context)
 
@@ -65,14 +66,14 @@ def post_detail(request, post_id):
     context = {
         'post': post
     }
-    return render(request, template, context) 
+    return render(request, template, context)
 
 
 @login_required
 def post_create(request):
     template = 'posts/post_create.html'
     author = get_object_or_404(User, pk=request.user.id)
-    form = PostForm(request.POST or None, initial={'author': author.id}) 
+    form = PostForm(request.POST or None, initial={'author': author.id})
     if form.is_valid():
         post = form.save(commit=False)
         post.author = request.user
@@ -81,6 +82,7 @@ def post_create(request):
             'posts:profile', request.user
         )
     return render(request, template, {'form': form})
+
 
 def post_edit(request, post_id):
     template = 'posts/post_create.html'
@@ -93,5 +95,5 @@ def post_edit(request, post_id):
         form.save()
         return redirect('posts:post_detail', post_id)
     return render(request, template,
-                  {'form': form, 'is_valid': True, 'post':post}
-    )
+                  {'form': form, 'is_valid': True, 'post': post}
+                 )
