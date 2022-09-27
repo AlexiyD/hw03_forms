@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from . models import Post, Group, User
+from .models import Post, Group, User
 from .forms import PostForm
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
@@ -52,10 +52,10 @@ def profile(request, username):
     paginator = Paginator(post_list, 10)
     page_obj = paginator.get_page(page_number)
     context = {
-        "profile": profile,
-        "page_obj": page_obj,
-        "paginator": paginator,
-        "post_count": post_count
+            "profile": profile,
+            "page_obj": page_obj,
+            "paginator": paginator,
+            "post_count": post_count
     }
     return render(request, 'posts/profile.html', context)
 
