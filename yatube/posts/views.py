@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 
 
-User = get_user_model()
 text_output: int = 10
 
 
