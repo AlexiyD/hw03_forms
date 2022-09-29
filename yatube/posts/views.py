@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Group, User
 from .forms import PostForm
 from django.shortcuts import redirect
-from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 
 
