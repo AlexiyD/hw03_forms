@@ -27,7 +27,7 @@ def index(request):
 def group_posts(request, slug):
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.order_by[:text_output]
+    posts = Post.objects.filter(group=group)[:text_output]
     paginator = Paginator(posts, text_output)
     page_number = request.GET.get('page')
     if(not page_number):
