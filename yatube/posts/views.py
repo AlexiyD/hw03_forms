@@ -14,7 +14,7 @@ text_output: int = 10
 def index(request):
     template = 'posts/index.html'
     post_list = Post.objects.all()
-    paginator = Paginator(post_list, 10)
+    paginator = Paginator(post_list, text_output)
     page_number = request.GET.get('page')
     if(not page_number):
         page_number = 1
@@ -30,7 +30,7 @@ def group_posts(request, slug):
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
     posts = Post.objects.filter(group=group)[:text_output]
-    paginator = Paginator(posts, 10)
+    paginator = Paginator(posts, text_output)
     page_number = request.GET.get('page')
     if(not page_number):
         page_number = 1
@@ -49,7 +49,7 @@ def profile(request, username):
     post_list = (Post.objects.select_related("author", "group")
                  .filter(author=profile).order_by("-pub_date").all())
     post_count = post_list.count
-    paginator = Paginator(post_list, 10)
+    paginator = Paginator(post_list, text_output)
     page_obj = paginator.get_page(page_number)
     context = {
         "profile": profile,
@@ -83,7 +83,7 @@ def post_create(request):
         )
     return render(request, template, {'form': form})
 
-
+@login_required 
 def post_edit(request, post_id):
     template = 'posts/post_create.html'
     post = get_object_or_404(Post, pk=post_id)
@@ -95,5 +95,5 @@ def post_edit(request, post_id):
         form.save()
         return redirect('posts:post_detail', post_id)
     return render(request, template,
-                  {'form': form, 'is_valid': True, 'post': post}
+                  {'form': form, 'is_edit': True, 'post': post}
                   )

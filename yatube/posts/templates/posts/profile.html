@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru"> 
   <head>  
-    <!-- Подключены иконки, стили и заполенены мета теги -->
-    <title>Профайл пользователя <!--Лев Толстой--></title>
+    <title>Профайл пользователя</title>
   </head>
   <body>       
     <header>
@@ -17,9 +16,8 @@
     </header>
     <main>
       <div class="container py-5">        
-        <h1>Все посты пользователя <!--Лев Толстой--> </h1>
+        <h1>Все посты пользователя</h1>
         <h3>Всего постов: {{ post_count}} </h3>
-
         {% for post in page_obj %}
           {% include "includes/profile_post_card.html"%}
           {% url 'posts:group_posts' post.group.slug as the_url %}
@@ -28,12 +26,11 @@
           {% endif %}
           {% if not forloop.last %}<hr>{% endif %}
         {% endfor %} 
-        <!-- Остальные посты. после последнего нет черты -->
         {% include 'posts/includes/paginator.html' %} 
       </div>
     </main>
     <footer class="border-top text-center py-3">
-      <p>© <!--2021 --> Copyright <span style="color:red">Ya</span>tube</p>    
+      <p>© Copyright <span style="color:red">Ya</span>tube</p>    
     </footer>
   </body>
 </html>
