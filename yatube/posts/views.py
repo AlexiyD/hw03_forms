@@ -83,7 +83,8 @@ def post_create(request):
         )
     return render(request, template, {'form': form})
 
-@login_required 
+
+@login_required
 def post_edit(request, post_id):
     template = 'posts/post_create.html'
     post = get_object_or_404(Post, pk=post_id)
