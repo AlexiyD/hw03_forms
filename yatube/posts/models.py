@@ -16,9 +16,9 @@ class Post(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField('дата публикации', auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='posts')
+                               related_name='posts_author')
     group = models.ForeignKey(Group, on_delete=models.SET_NULL,
-                              related_name='posts',
+                              related_name='posts_group',
                               blank=True, null=True)
 
     class Meta:
